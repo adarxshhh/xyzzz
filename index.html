@@ -1,40 +1,369 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth dark">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Adarsh Banshpal | Business Analyst & Technologist</title>
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-    <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- QRCode Generator Library -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Adarsh Banshpal | Creative Developer & Full-Stack Engineer</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- GSAP & ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            brand: {
+              cyan: '#00f2fe',
+              blue: '#4facfe',
+              purple: '#7F00FF',
+              dark: '#06080d',
+              surface: '#0f1422',
+              card: '#131a2e'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #05070d;
+      color: #e2e8f0;
+      overflow-x: hidden;
+    }
     
-    <style>
-        :root {
-            --bg-main: #0a0d14;
-            --bg-card: rgba(18, 24, 38, 0.7);
-            --bg-card-hover: rgba(26, 35, 54, 0.85);
-            --nav-bg: rgba(10, 13, 20, 0.85);
-            --border-glow: rgba(0, 242, 254, 0.2);
-            --border-glow-hover: rgba(0, 242, 254, 0.6);
-            --card-border: rgba(255, 255, 255, 0.08);
-            --tag-bg: rgba(255, 255, 255, 0.05);
-            --tag-text: #cbd5e1;
-            --cyan: #00f2fe;
-            --purple: #9d4edd;
-            --emerald: #00f5d4;
-            --text-primary: #f8fafc;
-            --text-secondary: #94a3b8;
-            --text-muted: #64748b;
-            --shadow-card: 0 20px 40px rgba(0, 0, 0, 0.4);
-            --modal-bg: #0e131f;
-            --input-bg: rgba(255, 255, 255, 0.04);
-            --font-main: 'Plus Jakarta Sans', sans-serif;
-            --font-code: 'JetBrains Mono', monospace;
+    /* Radial Glow backgrounds */
+    .glow-gradient {
+      background: radial-gradient(circle at 50% 50%, rgba(79, 172, 254, 0.15) 0%, rgba(0, 0, 0, 0) 70%);
+    }
+
+    .glass-card {
+      background: rgba(15, 20, 34, 0.7);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+    }
+
+    .glass-nav {
+      background: rgba(6, 8, 13, 0.8);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .gradient-text {
+      background: linear-gradient(135deg, #00f2fe 0%, #4facfe 50%, #9b51e0 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #06080d;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1e293b;
+      border-radius: 999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #3b82f6;
+    }
+
+    .step-active {
+      opacity: 1 !important;
+      transform: translateY(0px) !important;
+    }
+    .step-inactive {
+      opacity: 0.25;
+      transform: translateY(12px);
+    }
+  </style>
+</head>
+<body class="font-sans antialiased selection:bg-brand-blue selection:text-white">
+
+  <!-- Interactive Particle Background Canvas -->
+  <canvas id="particleCanvas" class="fixed inset-0 pointer-events-none z-0"></canvas>
+
+  <!-- Ambient Glow Blobs -->
+  <div class="fixed top-1/4 -left-48 w-96 h-96 bg-brand-cyan/15 rounded-full blur-3xl pointer-events-none z-0"></div>
+  <div class="fixed bottom-1/4 -right-48 w-96 h-96 bg-brand-purple/15 rounded-full blur-3xl pointer-events-none z-0"></div>
+
+  <!-- Navigation Bar -->
+  <header class="fixed top-0 left-0 right-0 z-50 glass-nav transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+      <a href="#" class="flex items-center gap-3 group">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-cyan to-brand-purple flex items-center justify-center font-bold text-white shadow-lg shadow-brand-blue/20 group-hover:scale-105 transition-transform">
+          AB
+        </div>
+        <div class="flex flex-col">
+          <span class="font-bold tracking-tight text-white group-hover:text-brand-cyan transition-colors">Adarsh Banshpal</span>
+          <span class="text-xs text-slate-400 font-mono flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Available for projects
+          </span>
+        </div>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
+        <a href="#about" class="hover:text-brand-cyan transition-colors">About</a>
+        <a href="#workflow-section" class="hover:text-brand-cyan transition-colors">Interactive Workflow</a>
+        <a href="#projects" class="hover:text-brand-cyan transition-colors">Projects</a>
+        <a href="#terminal" class="hover:text-brand-cyan transition-colors">Terminal CLI</a>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <a href="https://github.com/adarxshhh" target="_blank" class="p-2.5 rounded-xl glass-card hover:border-brand-blue/50 text-slate-300 hover:text-white transition-all">
+          <i data-lucide="github" class="w-4 h-4"></i>
+        </a>
+        <a href="#terminal" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-brand-cyan to-brand-blue text-slate-950 font-semibold text-sm hover:shadow-lg hover:shadow-brand-blue/25 hover:scale-[1.02] active:scale-[0.98] transition-all">
+          Let's Talk
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="min-h-screen relative flex items-center justify-center pt-24 px-6 z-10" id="about">
+    <div class="max-w-4xl mx-auto text-center flex flex-col items-center">
+      
+      <!-- Status Badge -->
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-card text-xs font-mono text-brand-cyan mb-8 border border-brand-cyan/20 animate-fade-in">
+        <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+        <span>FULL-STACK ARCHITECT & INTERACTIVE DESIGNER</span>
+      </div>
+
+      <!-- Headline -->
+      <h1 class="text-5xl sm:text-7xl font-extrabold tracking-tight leading-[1.1] mb-6">
+        Building high-impact web <br />
+        <span class="gradient-text">applications & digital systems.</span>
+      </h1>
+
+      <p class="text-lg sm:text-xl text-slate-400 max-w-2xl font-normal leading-relaxed mb-10">
+        Hi, I'm <strong class="text-white font-semibold">Adarsh Banshpal</strong>. I engineer high-performance frontend interfaces, robust full-stack architectures, and intuitive digital workflows with clean code.
+      </p>
+
+      <!-- CTA Action Group -->
+      <div class="flex flex-wrap items-center justify-center gap-4 mb-16">
+        <a href="#workflow-section" class="px-7 py-3.5 rounded-xl bg-gradient-to-r from-brand-cyan to-brand-blue text-slate-950 font-bold flex items-center gap-2 hover:shadow-xl hover:shadow-brand-blue/30 transition-all hover:scale-105">
+          <span>Explore Workflow</span>
+          <i data-lucide="arrow-down-right" class="w-4 h-4"></i>
+        </a>
+        <a href="#projects" class="px-7 py-3.5 rounded-xl glass-card text-slate-200 font-semibold flex items-center gap-2 hover:border-slate-500 hover:text-white transition-all">
+          <span>View Works</span>
+          <i data-lucide="layers" class="w-4 h-4"></i>
+        </a>
+      </div>
+
+      <!-- Scroll Hint -->
+      <div class="flex flex-col items-center gap-2 text-xs font-mono text-slate-500 animate-bounce">
+        <span>SCROLL TO INITIATE SEQUENCE</span>
+        <i data-lucide="chevron-down" class="w-4 h-4"></i>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- PINNED SCROLL-DRIVEN WORKFLOW SHOWCASE (THE CORE IMMERSIVE EXPERIENCE) -->
+  <!-- ========================================================================= -->
+  <section id="workflow-section" class="relative z-10">
+    <div class="max-w-7xl mx-auto px-6 pt-16 pb-8">
+      <div class="text-center md:text-left mb-8">
+        <span class="text-xs font-mono text-brand-cyan tracking-widest uppercase">System Methodology</span>
+        <h2 class="text-3xl sm:text-5xl font-extrabold text-white mt-2">How I turn ideas into realities.</h2>
+      </div>
+    </div>
+
+    <!-- Pinned Workflow Container -->
+    <div id="workflow-pin-wrapper" class="relative w-full min-h-[400vh]">
+      <div id="workflow-sticky-box" class="sticky top-20 h-[calc(100vh-5rem)] max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        
+        <!-- LEFT COLUMN: Narrative Stages -->
+        <div class="lg:col-span-5 flex flex-col justify-center space-y-8 z-20">
+          
+          <!-- Step 1 Info -->
+          <div class="workflow-story-card transition-all duration-500" data-stage="1">
+            <div class="flex items-center gap-3 text-brand-cyan font-mono text-sm font-semibold mb-2">
+              <span class="w-7 h-7 rounded-lg bg-brand-cyan/10 border border-brand-cyan/30 flex items-center justify-center">01</span>
+              <span>PHASE 1: DISCOVERY & ARCHITECTURE</span>
+            </div>
+            <h3 class="text-2xl sm:text-3xl font-bold text-white mb-3">Blueprint, Strategy & Data Modeling</h3>
+            <p class="text-slate-400 text-sm sm:text-base leading-relaxed mb-4">
+              Every robust system begins with scalable system design. I analyze core user requirements, diagram API boundaries, and plan database schemas for zero technical debt.
+            </p>
+            <div class="flex flex-wrap gap-2 text-xs font-mono">
+              <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 border border-slate-700">System Architecture</span>
+              <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 border border-slate-700">Database Schema</span>
+              <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 border border-slate-700">Figma Prototype</span>
+            </div>
+          </div>
+
+          <!-- Step 2 Info -->
+          <div class="workflow-story-card transition-all duration-500 opacity-25" data-stage="2">
+            <div class="flex items-center gap-3 text-brand-blue font-mono text-sm font-semibold mb-2">
+              <span class="w-7 h-7 rounded-lg bg-brand-blue/10 border border-brand-blue/30 flex items-center justify-center">02</span>
+              <span>PHASE 2: INTERACTIVE FRONTEND & MOTION</span>
+            </div>
+            <h3 class="text-2xl sm:text-3xl font-bold text-white mb-3">Pixel-Perfect, Dynamic & Accessible UI</h3>
+            <p class="text-slate-400 text-sm sm:text-base leading-relaxed mb-4">
+              Transforming wireframes into responsive, 60fps fluid user interfaces using modern frameworks like React, Next.js, and Tailwind CSS with micro-interactions.
+            </p>
+            <div class="flex flex-wrap gap-2 text-xs font-mono">
+              <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 border border-slate-700">React / Next.js</span>
+              <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 border border-slate-700">Tailwind CSS</span>
+              <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 border border-slate-700">GSAP / Framer</span>
+            </div>
+          </div>
+
+          <!-- Step 3 Info -->
+          <div class="workflow-story-card transition-all duration-500 opacity-25" data-stage="3">
+            <div class="flex items-center gap-3 text-purple-400 font-mono text-sm font-semibold mb-2">
+              <span class="w-7 h-7 rounded-lg bg-purple-400/10 border border-purple-400/30 flex items-center justify-center">03</span>
+              <span>PHASE 3: BACKEND, API & LOGIC LAYER</span>
+            </div>
+            <h3 class="text-2xl sm:text-3xl font-bold text-white mb-3">High-Throughput APIs & Secure Services</h3>
+            <p class="text-slate-400 text-sm sm:text-base leading-relaxed mb-4">
+              Developing lightning-fast endpoints, bulletproof JWT authentication, real-time WebSockets, and background workers built for resilience and scalability.
+            </p>
+            <div class="flex flex-wrap gap-2 text-xs font-mono">
+              <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 border border-slate-700">Node / Express / Python</span>
+              <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 border border-slate-700">REST & GraphQL</span>
+              <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 border border-slate-700">PostgreSQL / MongoDB</span>
+            </div>
+          </div>
+
+          <!-- Step 4 Info -->
+          <div class="workflow-story-card transition-all duration-500 opacity-25" data-stage="4">
+            <div class="flex items-center gap-3 text-emerald-400 font-mono text-sm font-semibold mb-2">
+              <span class="w-7 h-7 rounded-lg bg-emerald-400/10 border border-emerald-400/30 flex items-center justify-center">04</span>
+              <span>PHASE 4: OPTIMIZE, DEPLOY & SCALE</span>
+            </div>
+            <h3 class="text-2xl sm:text-3xl font-bold text-white mb-3">CI/CD, Lighthouse 99+ & Cloud Delivery</h3>
+            <p class="text-slate-400 text-sm sm:text-base leading-relaxed mb-4">
+              Automated pipelines with zero downtime deployments on AWS/Vercel, complete with SEO optimization, asset caching, and global edge network delivery.
+            </p>
+            <div class="flex flex-wrap gap-2 text-xs font-mono">
+              <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 border border-slate-700">Docker & CI/CD</span>
+              <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 border border-slate-700">Vercel & AWS</span>
+              <span class="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 border border-slate-700">Lighthouse 99+</span>
+            </div>
+          </div>
+
+          <!-- Global Step Progress Bar Indicator -->
+          <div class="w-full bg-slate-800/80 rounded-full h-1.5 overflow-hidden">
+            <div id="workflow-progress-bar" class="h-full bg-gradient-to-r from-brand-cyan via-brand-blue to-purple-500 w-1/4 transition-all duration-300"></div>
+          </div>
+
+        </div>
+
+        <!-- RIGHT COLUMN: Dynamic Visual Stage (Morphs as user scrolls) -->
+        <div class="lg:col-span-7 h-[420px] sm:h-[480px] relative flex items-center justify-center">
+          
+          <!-- Stage 1 Visual: System Diagram / Code Schema -->
+          <div id="visual-stage-1" class="workflow-visual absolute inset-0 glass-card rounded-2xl p-6 flex flex-col justify-between transition-all duration-700 scale-100 opacity-100">
+            <div class="flex items-center justify-between border-b border-white/10 pb-4">
+              <div class="flex items-center gap-2">
+                <div class="w-3 h-3 rounded-full bg-rose-500/80"></div>
+                <div class="w-3 h-3 rounded-full bg-amber-500/80"></div>
+                <div class="w-3 h-3 rounded-full bg-emerald-500/80"></div>
+                <span class="text-xs font-mono text-slate-400 ml-2">architecture_plan.ts</span>
+              </div>
+              <span class="text-xs font-mono text-brand-cyan bg-brand-cyan/10 px-2 py-0.5 rounded">INIT_CONFIG</span>
+            </div>
+
+            <div class="font-mono text-xs sm:text-sm text-slate-300 space-y-2 py-4 overflow-hidden">
+              <p class="text-purple-400">export const <span class="text-blue-400">ArchitecturalBlueprint</span> = {</p>
+              <p class="pl-4 text-slate-400">client: <span class="text-emerald-400">"Production Web Application"</span>,</p>
+              <p class="pl-4 text-slate-400">engineer: <span class="text-emerald-400">"Adarsh Banshpal"</span>,</p>
+              <p class="pl-4 text-slate-400">designSystem: <span class="text-amber-400">["Tailwind", "Figma", "Micro-Interactions"]</span>,</p>
+              <p class="pl-4 text-slate-400">scalability: { redundancy: <span class="text-brand-cyan">true</span>, globalEdge: <span class="text-brand-cyan">true</span> },</p>
+              <p class="pl-4 text-slate-400">database: <span class="text-emerald-400">"PostgreSQL + Prisma ORM"</span></p>
+              <p class="text-purple-400">};</p>
+            </div>
+
+            <div class="grid grid-cols-3 gap-3 pt-3 border-t border-white/10">
+              <div class="p-2.5 rounded-lg bg-slate-900/60 border border-white/5 text-center">
+                <div class="text-xs text-slate-400 font-mono">Architecture</div>
+                <div class="text-sm font-bold text-brand-cyan mt-1">Modular</div>
+              </div>
+              <div class="p-2.5 rounded-lg bg-slate-900/60 border border-white/5 text-center">
+                <div class="text-xs text-slate-400 font-mono">Security</div>
+                <div class="text-sm font-bold text-brand-blue mt-1">Encrypted</div>
+              </div>
+              <div class="p-2.5 rounded-lg bg-slate-900/60 border border-white/5 text-center">
+                <div class="text-xs text-slate-400 font-mono">Velocity</div>
+                <div class="text-sm font-bold text-purple-400 mt-1">Rapid</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Stage 2 Visual: UI Component Mockup -->
+          <div id="visual-stage-2" class="workflow-visual absolute inset-0 glass-card rounded-2xl p-6 flex flex-col justify-between transition-all duration-700 scale-95 opacity-0 pointer-events-none">
+            <div class="flex items-center justify-between border-b border-white/10 pb-4">
+              <span class="text-xs font-mono text-brand-blue font-semibold flex items-center gap-1.5">
+                <i data-lucide="layout" class="w-3.5 h-3.5"></i> UI_COMPONENT_PREVIEW.tsx
+              </span>
+              <div class="flex items-center gap-1">
+                <span class="w-2 h-2 rounded-full bg-brand-cyan animate-ping"></span>
+                <span class="text-[11px] font-mono text-slate-400">60 FPS Render</span>
+              </div>
+            </div>
+
+            <!-- Dynamic UI Prototype Cards inside Stage -->
+            <div class="space-y-3 py-3">
+              <div class="p-4 rounded-xl bg-gradient-to-r from-brand-blue/20 to-purple-600/20 border border-brand-blue/30 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                  <div class="p-2 rounded-lg bg-brand-blue text-slate-950 font-bold">
+                    <i data-lucide="cpu" class="w-5 h-5"></i>
+                  </div>
+                  <div>
+                    <div class="text-sm font-bold text-white">Dynamic Interactive Canvas</div>
+                    <div class="text-xs text-slate-400">GPU Accelerated animations</div>
+                  </div>
+                </div>
+                <span class="text-xs font-mono px-2 py-1 rounded bg-emerald-500/20 text-emerald-300">Active</span>
+              </div>
+
+              <div class="grid grid-cols-2 gap-3">
+                <div class="p-3 rounded-xl bg-slate-900/80 border border-white/10 flex flex-col gap-1">
+                  <span class="text-xs text-slate-400 font-mono">Layout Response</span>
+                  <span class="text-sm font-bold text-brand-cyan">Mobile & Desktop 100%</span>
+                </div>
+                <div class="p-3 rounded-xl bg-slate-900/80 border border-white/10 flex flex-col gap-1">
+                  <span class="text-xs text-slate-400 font-mono">Accessibility</span>
+                  <span class="text-sm font-bold text-purple-400">WCAG 2.1 Compliant</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-between pt-3 border-t border-white/10 text-xs font-mono text-slate-400">
+              <span>Framework: React + Tailwind</span>
+              <span class="text-brand-cyan">Smooth transitions loaded</span>
+            </div>
+          </div>
+
+          <!-- Stage 3 Visual: API & Server Logic -->
+          <div id="visual-stage-3" class="workflow-visual absolute inset-0 glass-card rounded-2xl p-6 flex flex-col justify-between transit            --font-code: 'JetBrains Mono', monospace;
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
