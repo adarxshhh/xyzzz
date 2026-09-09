@@ -394,7 +394,7 @@
             letter-spacing: -0.5px;
         }
 
-        /* Interactive Filter Projects Section */
+        /* Projects Section */
         .filter-buttons {
             display: flex;
             justify-content: center;
@@ -729,7 +729,7 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
             gap: 1.25rem;
-            margin: 2.5rem 0;
+            margin: 2.5rem 0 2rem;
         }
 
         .contact-item {
@@ -771,18 +771,151 @@
             word-break: break-all;
         }
 
-        /* ==================== GOOGLE FORM INQUIRY EMBED SECTION ==================== */
+        /* ==================== ANIMATED INTERACTIVE QR SHOWCASE ==================== */
+        .qr-showcase-card {
+            background: linear-gradient(135deg, rgba(0, 242, 254, 0.05), rgba(157, 78, 221, 0.05));
+            border: 1px solid var(--border-glow);
+            border-radius: 20px;
+            padding: 1.8rem;
+            margin: 2.5rem auto 2.5rem;
+            max-width: 720px;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            text-align: left;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: var(--transition);
+        }
+
+        .qr-showcase-card:hover {
+            border-color: var(--cyan);
+            box-shadow: 0 12px 35px var(--border-glow);
+            transform: translateY(-3px);
+        }
+
+        .qr-frame-wrapper {
+            position: relative;
+            width: 190px;
+            height: 190px;
+            min-width: 190px;
+            border-radius: 16px;
+            overflow: hidden;
+            background: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35);
+            border: 2px solid var(--cyan);
+        }
+
+        .qr-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            overflow: hidden;
+            display: block;
+        }
+
+        .qr-scan-line {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+            box-shadow: 0 0 12px var(--cyan);
+            animation: scanLaser 2.8s ease-in-out infinite alternate;
+            z-index: 5;
+            pointer-events: none;
+        }
+
+        @keyframes scanLaser {
+            0% { top: 2%; opacity: 0.6; }
+            50% { opacity: 1; }
+            100% { top: 96%; opacity: 0.6; }
+        }
+
+        .qr-info-content {
+            flex: 1;
+        }
+
+        .qr-badge-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.78rem;
+            font-family: var(--font-code);
+            font-weight: 700;
+            color: var(--cyan);
+            background: rgba(0, 242, 254, 0.1);
+            border: 1px solid var(--border-glow);
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+        }
+
+        .qr-info-content h4 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.4rem;
+            color: var(--text-primary);
+        }
+
+        .qr-info-content p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 1.2rem;
+            line-height: 1.5;
+        }
+
+        .btn-qr-direct {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--cyan);
+            background: var(--tag-bg);
+            border: 1px solid var(--card-border);
+            padding: 0.5rem 1.1rem;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .btn-qr-direct:hover {
+            border-color: var(--cyan);
+            background: rgba(0, 242, 254, 0.12);
+            color: #ffffff;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 680px) {
+            .qr-showcase-card {
+                flex-direction: column;
+                text-align: center;
+                gap: 1.5rem;
+                padding: 1.5rem;
+            }
+            .qr-frame-wrapper {
+                margin: 0 auto;
+            }
+        }
+
+        /* Inquiry Section */
         .inquiry-section-wrapper {
             max-width: 850px;
             margin: 3.5rem auto 0;
             background: var(--bg-card);
             border: 1px solid var(--card-border);
             border-radius: 24px;
-            padding: 3rem 2rem;
+            padding: 3rem 2.5rem;
             box-shadow: var(--shadow-card);
             position: relative;
             overflow: hidden;
-            backdrop-filter: blur(10px);
         }
 
         .inquiry-section-wrapper::before {
@@ -812,23 +945,118 @@
             font-size: 0.95rem;
         }
 
-        .google-form-frame-container {
-            width: 100%;
-            position: relative;
-            background: #ffffff;
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+        .inquiry-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
         }
 
-        .google-form-frame-container iframe {
-            width: 100%;
-            min-height: 1187px;
+        .form-row-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.25rem;
+        }
+
+        @media (max-width: 600px) {
+            .form-row-2 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+            text-align: left;
+        }
+
+        .form-group label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            background: var(--input-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 0.85rem 1.1rem;
+            color: var(--text-primary);
+            font-family: var(--font-main);
+            font-size: 0.92rem;
+            transition: var(--transition);
+            outline: none;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: var(--cyan);
+            background: rgba(0, 242, 254, 0.04);
+            box-shadow: 0 0 15px var(--border-glow);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-status-msg {
+            display: none;
+            padding: 0.85rem 1.2rem;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            text-align: center;
+            margin-top: 0.5rem;
+        }
+
+        .form-status-msg.success {
             display: block;
-            border: none;
+            background: rgba(0, 245, 212, 0.12);
+            color: var(--emerald);
+            border: 1px solid rgba(0, 245, 212, 0.3);
         }
 
-        /* ==================== RESUME MODAL VIEWER ==================== */
+        .form-status-msg.error {
+            display: block;
+            background: rgba(239, 68, 68, 0.12);
+            color: #ef4444;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        .btn-submit-query {
+            background: linear-gradient(135deg, var(--cyan), var(--purple));
+            color: #ffffff;
+            font-weight: 700;
+            padding: 0.95rem 2rem;
+            border-radius: 12px;
+            border: none;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+            margin-top: 0.5rem;
+            box-shadow: 0 4px 20px var(--border-glow);
+        }
+
+        .btn-submit-query:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px var(--border-glow-hover);
+        }
+
+        .btn-submit-query:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Resume Modal */
         .resume-modal {
             display: none;
             position: fixed;
@@ -1052,7 +1280,7 @@
             }
         }
 
-        /* Footer Visitor Pill */
+        /* Footer */
         .footer-visitor-pill {
             display: inline-flex;
             align-items: center;
@@ -1067,7 +1295,6 @@
             margin-top: 1rem;
         }
 
-        /* Footer */
         footer {
             text-align: center;
             padding: 3rem 2rem;
@@ -1579,6 +1806,28 @@
                 </a>
             </div>
 
+            <!-- ==================== ANIMATED INTERACTIVE QR CODE CARD ==================== -->
+            <div class="qr-showcase-card">
+                <div class="qr-frame-wrapper">
+                    <div class="qr-scan-line"></div>
+                    <iframe 
+                        src="https://tree.icqr.com/s/MTBodHRwczovL3d3dy5saW5rZWRpbi5jb20vaW4vYWRhcnNoYmFuc2hwYWw" 
+                        title="Interactive Animated QR Code - Adarsh Banshpal LinkedIn"
+                        allowtransparency="true"
+                        scrolling="no"
+                        class="qr-iframe">
+                    </iframe>
+                </div>
+                <div class="qr-info-content">
+                    <div class="qr-badge-pill"><i class="fa-solid fa-qrcode"></i> Interactive QR</div>
+                    <h4>Instant Profile Sync</h4>
+                    <p>Scan with your mobile camera to instantly open and connect on my verified LinkedIn profile.</p>
+                    <a href="https://tree.icqr.com/s/MTBodHRwczovL3d3dy5saW5rZWRpbi5jb20vaW4vYWRhcnNoYmFuc2hwYWw" target="_blank" class="btn-qr-direct">
+                        <i class="fa-solid fa-up-right-from-square"></i> Open Live QR View
+                    </a>
+                </div>
+            </div>
+
             <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
                 <a href="mailto:adarsh.banshpal@gmail.com" class="btn-primary" style="padding: 1rem 2.5rem;">
                     <i class="fa-solid fa-paper-plane"></i> Send Direct Message
@@ -1589,17 +1838,48 @@
             </div>
         </div>
 
-        <!-- ==================== GOOGLE FORM INQUIRY SECTION ==================== -->
+        <!-- ==================== INQUIRY FORM ==================== -->
         <div class="inquiry-section-wrapper" id="inquiry">
             <div class="inquiry-header">
                 <span class="section-tag">// Quick Query</span>
                 <h3>Submit an Inquiry</h3>
-                <p>Fill out the form below to connect — details record directly in real-time.</p>
+                <p>Drop your question or project details below — submissions record directly to Google Sheets in real-time.</p>
             </div>
 
-            <div class="google-form-frame-container">
-                <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfRIesS8a1LIrhVfp9HtQ5Uwky59I_3g0u5aUhc-Frx1lGtxA/viewform?embedded=true" width="640" height="1187" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
-            </div>
+            <form class="inquiry-form" id="google-sheets-inquiry-form">
+                <div class="form-row-2">
+                    <div class="form-group">
+                        <label for="inquiry-name"><i class="fa-solid fa-user"></i> Full Name *</label>
+                        <input type="text" id="inquiry-name" name="Name" placeholder="e.g. Rahul Sharma" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="inquiry-email"><i class="fa-solid fa-envelope"></i> Email Address *</label>
+                        <input type="email" id="inquiry-email" name="Email" placeholder="e.g. rahul@company.com" required>
+                    </div>
+                </div>
+
+                <div class="form-row-2">
+                    <div class="form-group">
+                        <label for="inquiry-phone"><i class="fa-solid fa-phone"></i> Contact / WhatsApp (Optional)</label>
+                        <input type="tel" id="inquiry-phone" name="Phone" placeholder="+91 XXXXX XXXXX">
+                    </div>
+                    <div class="form-group">
+                        <label for="inquiry-subject"><i class="fa-solid fa-tag"></i> Inquiry Subject</label>
+                        <input type="text" id="inquiry-subject" name="Subject" placeholder="e.g. Business Analytics Project / Role" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="inquiry-message"><i class="fa-solid fa-comment-dots"></i> Message & Requirements *</label>
+                    <textarea id="inquiry-message" name="Message" placeholder="Write your message or inquiry details here..." required></textarea>
+                </div>
+
+                <button type="submit" class="btn-submit-query" id="submit-inquiry-btn">
+                    <i class="fa-solid fa-paper-plane"></i> Send Inquiry to Sheet
+                </button>
+
+                <div class="form-status-msg" id="form-status"></div>
+            </form>
         </div>
     </section>
 
@@ -1795,10 +2075,9 @@
 
     <!-- Interactive Scripts -->
     <script>
-        // --- 0. Visitor Counter Engine (Base: 1265 -> n+1 Increment & Animated Count) ---
+        // --- 0. Visitor Counter Engine ---
         (function initVisitorCounter() {
             const BASE_VISITORS = 1265;
-            
             let visitCount = parseInt(localStorage.getItem("adarsh_portfolio_visits") || "0", 10);
             visitCount += 1;
             localStorage.setItem("adarsh_portfolio_visits", visitCount);
@@ -1825,7 +2104,6 @@
             document.addEventListener("DOMContentLoaded", () => {
                 const bannerCounter = document.getElementById("visitor-count");
                 const footerCounter = document.getElementById("footer-visitor-count");
-                
                 const startAnimVal = Math.max(0, totalVisitors - 35);
                 animateCounter(bannerCounter, startAnimVal, totalVisitors, 1400);
                 if (footerCounter) {
@@ -1834,7 +2112,63 @@
             });
         })();
 
-        // --- 1. Resume Modal Handlers ---
+        // --- 1. Google Sheets Inquiry Form Submission Handler ---
+        const GOOGLE_SCRIPT_WEB_APP_URL = "https://script.google.com/macros/s/AKfycby-YOUR_DEPLOYED_APP_ID/exec"; 
+
+        const inquiryForm = document.getElementById("google-sheets-inquiry-form");
+        const submitBtn = document.getElementById("submit-inquiry-btn");
+        const statusMsg = document.getElementById("form-status");
+
+        inquiryForm.addEventListener("submit", async function (e) {
+            e.preventDefault();
+
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Submitting to Google Sheet...';
+            statusMsg.className = "form-status-msg";
+            statusMsg.style.display = "none";
+
+            const formData = new FormData(inquiryForm);
+            formData.append("Timestamp", new Date().toLocaleString());
+            formData.append("Sheet_ID", "1v_CkapvCDoFysh2kClvixe1yHs9KJwP9LjvLwA96zAM");
+
+            try {
+                if (GOOGLE_SCRIPT_WEB_APP_URL.includes("YOUR_DEPLOYED_APP_ID")) {
+                    const name = formData.get("Name");
+                    const email = formData.get("Email");
+                    const phone = formData.get("Phone") || "N/A";
+                    const subject = formData.get("Subject");
+                    const message = formData.get("Message");
+
+                    const mailtoLink = `mailto:adarsh.banshpal@gmail.com?subject=${encodeURIComponent("[Inquiry] " + subject)}&body=${encodeURIComponent(
+                        `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\n\nMessage:\n${message}\n\n(Logged for Sheet: 1v_CkapvCDoFysh2kClvixe1yHs9KJwP9LjvLwA96zAM)`
+                    )}`;
+
+                    window.location.href = mailtoLink;
+
+                    statusMsg.className = "form-status-msg success";
+                    statusMsg.innerHTML = '<i class="fa-solid fa-check-circle"></i> Opening direct mail dispatcher. Once your Apps Script URL is set, records sync silently to Sheet <b>1v_CkapvCDoFysh2kClvixe1yHs9KJwP9LjvLwA96zAM</b>!';
+                    inquiryForm.reset();
+                } else {
+                    const response = await fetch(GOOGLE_SCRIPT_WEB_APP_URL, {
+                        method: "POST",
+                        body: formData,
+                        mode: "no-cors"
+                    });
+
+                    statusMsg.className = "form-status-msg success";
+                    statusMsg.innerHTML = '<i class="fa-solid fa-circle-check"></i> Thank you! Your query has been recorded successfully into Google Sheets.';
+                    inquiryForm.reset();
+                }
+            } catch (error) {
+                statusMsg.className = "form-status-msg error";
+                statusMsg.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Submission error. Please contact directly via WhatsApp or Email.';
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Send Inquiry to Sheet';
+            }
+        });
+
+        // --- 2. Resume Modal Handlers ---
         function openResumeModal() {
             const modal = document.getElementById("resume-modal");
             modal.classList.add("active");
@@ -1857,7 +2191,7 @@
             if (e.key === "Escape") closeResumeModal();
         });
 
-        // --- 2. Dark / Light Theme Toggle with Persistent Storage ---
+        // --- 3. Dark / Light Theme Toggle ---
         const themeBtnDesktop = document.getElementById("theme-btn-desktop");
         const themeBtnMobile = document.getElementById("theme-btn-mobile");
 
@@ -1892,7 +2226,7 @@
         if (themeBtnDesktop) themeBtnDesktop.addEventListener("click", toggleTheme);
         if (themeBtnMobile) themeBtnMobile.addEventListener("click", toggleTheme);
 
-        // --- 3. Typewriter Animation ---
+        // --- 4. Typewriter Animation ---
         const words = [
             "MBA (Business Analytics) Specialist",
             "Streamlit & Python Developer",
@@ -1930,7 +2264,7 @@
         }
         type();
 
-        // --- 4. Interactive Projects Filter ---
+        // --- 5. Interactive Projects Filter ---
         const filterBtns = document.querySelectorAll(".filter-btn");
         const projectCards = document.querySelectorAll(".project-card");
 
@@ -1953,14 +2287,14 @@
             });
         });
 
-        // --- 5. Mobile Navigation Toggle ---
+        // --- 6. Mobile Navigation Toggle ---
         const menuBtn = document.getElementById("menu-btn");
         const navLinks = document.getElementById("nav-links");
         menuBtn.addEventListener("click", () => {
             navLinks.classList.toggle("active");
         });
 
-        // --- 6. Interactive Particles Background ---
+        // --- 7. Interactive Particles Background ---
         const canvas = document.getElementById("particle-canvas");
         const ctx = canvas.getContext("2d");
 
